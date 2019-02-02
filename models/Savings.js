@@ -17,6 +17,6 @@ var SavingsSchema = new Schema({
 	}
 })
 
-let Savings = mongoose.model('User', SavingsSchema)
+let Savings = mongoose.model('Savings', SavingsSchema)
 
 module.exports = Savings
