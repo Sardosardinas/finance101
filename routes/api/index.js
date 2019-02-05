@@ -1,17 +1,43 @@
 const router = require("express").Router();
-const bookRoutes = require("./books");
-const axios = require("axios")
-router.route("/google")
-    .get((req, res) => {
 
-        axios.get("https://www.googleapis.com/books/v1/volumes", { params: req.query })
-            .then(({ data: { items } }) => {
-                res.json(items)
+router.route("/savings")
+    .post((req, res) => {
+
+        db.Savings.create(req.body)
+            .then(function (dbSavings) {
+                console.log(dbSavings);
             })
-            .catch(err => res.status(422).json(err));
+            .catch(function (err) {
+                console.log(err);
+            });
+        res.send("Savings Complete")
     });
-// Book routes
-router.use("/books", bookRoutes);
+
+router.route("/SavingsData", function (req, res) {
+    db.Savings.find({})
+        .then(function (dbSavings) {
+            res.json(dbSavings);
+        })
+        .catch(function (err) {
+            res.json(err);
+        });
+});
+
+router.route("/user")
+    .post((req, res) => {
+
+        db.User.create(req.body)
+            .then(function (dbSavings) {
+                console.log(dbSavings);
+            })
+            .catch(function (err) {
+                console.log(err);
+            });
+        res.send("User Created")
+    });
+
+
+
 
 
 module.exports = router;
